@@ -107,10 +107,12 @@ header section :last-child {
 header nav ul,
 header nav li {
   margin: 0;
-  padding: 0;
-  display: block;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
   text-align: right;
-  white-space: nowrap;
+  justify-content: space-between;
+  white-space: normal;
 }
 header nav ul {
   margin: 1rem;

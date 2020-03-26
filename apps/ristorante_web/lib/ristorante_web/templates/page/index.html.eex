@@ -1,6 +1,10 @@
+<section class="row">
+  <p>Image here!</p>
+</section>
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed or maintainability.</p>
+  <h1><%= gettext "Welcome to %{name}!", name: "Ristorante" %></h1>
+  <p>A fake italian eatery that demonstrates how</br>
+    easy it is to make a restaurant ordering website!</p>
 </section>
 
 <section class="row">
