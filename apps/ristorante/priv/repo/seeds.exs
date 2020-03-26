@@ -11,7 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 alias Ristorante.Food
 
-categories = ~w(Appetisers Sandwiches Entrees Desserts)
+categories = ~w(Appetisers Sandwiches Pasta Desserts)
 
 for category <- categories do
   Food.create_catgeory!(category)

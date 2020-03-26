@@ -22,4 +22,17 @@ defmodule Ristorante.Food do
   def create_catgeory!(name) do
     Repo.insert!(%Category{name: name}, on_conflict: :nothing)
   end
+
+  def get_food_by(params) do
+    Repo.get_by(Dish, params)
+  end
+
+  # Gets the food belonging to a category.
+  def get_food_by_category(name) do
+    %Category{id: id} = get_category_by(name: name)
+
+    query = from d in Dish, where: d.category_id == ^id
+
+    Repo.all(query)
+  end
 end

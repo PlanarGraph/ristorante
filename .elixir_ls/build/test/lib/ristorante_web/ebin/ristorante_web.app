@@ -11,6 +11,8 @@
                         'Elixir.RistoranteWeb.Endpoint',
                         'Elixir.RistoranteWeb.ErrorHelpers',
                         'Elixir.RistoranteWeb.ErrorView',
+                        'Elixir.RistoranteWeb.FoodController',
+                        'Elixir.RistoranteWeb.FoodView',
                         'Elixir.RistoranteWeb.Gettext',
                         'Elixir.RistoranteWeb.LayoutView',
                         'Elixir.RistoranteWeb.PageController',

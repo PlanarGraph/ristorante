@@ -38,9 +38,15 @@
         <nav role="navigation", class="nav-horiz">
           <ul class="nav-horiz">
             <li class="nav-horiz">Desserts</li>
-            <li class="nav-horiz">Appetisers</li>
-            <li class="nav-horiz">Sandwiches</li>
-            <li class="nav-horiz">Pasta</li>
+            <li class="nav-horiz">
+              <%= link "Appetisers", to: Routes.food_path(@conn, :show, "Appetisers") %>
+            </li>
+            <li class="nav-horiz">
+              <%= link "Sandwiches", to: Routes.food_path(@conn, :show, "Sandwiches") %>
+            </li>
+            <li class="nav-horiz">
+              <%= link "Pasta", to: Routes.food_path(@conn, :show, "Pasta") %>
+            </li>
           </ul>
         </nav>
       </section>

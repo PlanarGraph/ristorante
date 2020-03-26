@@ -1,0 +1,9 @@
+<table>
+    <%= for dish <- @food do %>
+        <tr>
+            <td>
+                <%= dish.name %>
+            </td>
+        </tr>
+    <% end %>
+</table>

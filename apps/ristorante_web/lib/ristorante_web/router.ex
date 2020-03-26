@@ -19,6 +19,7 @@ defmodule RistoranteWeb.Router do
 
     resources "/users", UserController, only: [:show, :new, :create, :edit, :update]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/food", FoodController, only: [:show]
     get "/", PageController, :index
   end
 
