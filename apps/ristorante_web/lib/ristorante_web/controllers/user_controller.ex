@@ -4,7 +4,7 @@ defmodule RistoranteWeb.UserController do
   alias Ristorante.Accounts
   alias Ristorante.Accounts.User
 
-  plug :authenticate_user when action in [:index, :show]
+  plug :authenticate_user when action in [:show]
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -30,8 +30,15 @@ defmodule RistoranteWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    render(conn, "show.html", user: user)
+    # prevent other users from viewing your page!
+    if get_session(conn, :user_id) == String.to_integer(id) do
+      user = Accounts.get_user!(id)
+      render(conn, "show.html", user: user)
+    else
+      conn
+      |> put_flash(:error, "You are not authorized to access this page.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 
   # def edit(conn, %{"id" => id}) do

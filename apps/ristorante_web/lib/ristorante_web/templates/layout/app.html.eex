@@ -11,17 +11,38 @@
   <body>
     <header>
       <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li>Desserts</li>
-            <li>Appetisers</li>
-            <li>Sandwiches</li>
-            <li>Pasta</li>
+        <nav role="navigation", class="nav-vert">
+          <ul class="nav-vert">
+            <%= if @current_user do %>
+              <li class="nav-vert"> 
+                <%= link "#{@current_user.username}", to: Routes.user_path(@conn, :show, @current_user.id) %>
+              </li>
+              <li class="nav-vert">
+                <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: "delete" %>
+              </li>
+            <% else %>
+              <li class="nav-vert">
+                <%= link "Register", to: Routes.user_path(@conn, :new) %>
+              </li>
+              <li class="nav-vert">
+                <%= link "Log in", to: Routes.session_path(@conn, :new) %>
+              </li>
+            <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
+        <a href="<%= Routes.page_path(@conn, :index) %>" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/ristorante.png") %>" alt="Phoenix Framework Logo"/>
         </a>
+      </section>
+      <section class="container">
+        <nav role="navigation", class="nav-horiz">
+          <ul class="nav-horiz">
+            <li class="nav-horiz">Desserts</li>
+            <li class="nav-horiz">Appetisers</li>
+            <li class="nav-horiz">Sandwiches</li>
+            <li class="nav-horiz">Pasta</li>
+          </ul>
+        </nav>
       </section>
     </header>
     <main role="main" class="container">

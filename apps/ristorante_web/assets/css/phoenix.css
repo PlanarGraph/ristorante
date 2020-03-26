@@ -96,7 +96,7 @@ header section {
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 header section :first-child {
   order: 2;
@@ -114,12 +114,32 @@ header nav li {
   justify-content: space-between;
   white-space: normal;
 }
+
 header nav ul {
   margin: 1rem;
   margin-top: 0;
 }
 header nav a {
   display: block;
+}
+
+.nav-vert {
+  margin: 0;
+  padding: 4px;
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: flex;
+  white-space: nowrap;
+}
+
+.nav-horiz {
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  justify-content: center;
+  white-space: normal;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
@@ -132,5 +152,8 @@ header nav a {
   .phx-logo {
     flex-basis: 527px;
     margin: 2rem 1rem;
+  }
+  .nav-vert {
+    flex-direction: column-reverse;
   }
 }
