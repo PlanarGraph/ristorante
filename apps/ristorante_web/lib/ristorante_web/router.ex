@@ -17,7 +17,7 @@ defmodule RistoranteWeb.Router do
   scope "/", RistoranteWeb do
     pipe_through :browser
 
-    resources "/users", UserController, only: [:show, :new, :create]
+    resources "/users", UserController, only: [:show, :new, :create, :edit, :update]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/", PageController, :index
   end

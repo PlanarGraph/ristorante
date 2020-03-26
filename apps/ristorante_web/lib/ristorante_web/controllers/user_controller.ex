@@ -4,7 +4,9 @@ defmodule RistoranteWeb.UserController do
   alias Ristorante.Accounts
   alias Ristorante.Accounts.User
 
-  plug :authenticate_user when action in [:show]
+  plug :authenticate_user when action in [:show, :edit, :update]
+
+  # plug :check_auth when action in [:show, :edit, :update]
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -30,24 +32,23 @@ defmodule RistoranteWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    # prevent other users from viewing your page!
-    if get_session(conn, :user_id) == String.to_integer(id) do
-      user = Accounts.get_user!(id)
-      render(conn, "show.html", user: user)
-    else
-      conn
-      |> put_flash(:error, "You are not authorized to access this page.")
-      |> redirect(to: Routes.page_path(conn, :index))
-    end
+    check_auth(conn, id)
+
+    user = Accounts.get_user!(id)
+    render(conn, "show.html", user: user)
   end
 
-  # def edit(conn, %{"id" => id}) do
-  #  user = Accounts.get_user!(id)
-  #  changeset = Accounts.change_user(user)
-  #  render(conn, "edit.html", user: user, changeset: changeset)
-  # end
+  def edit(conn, %{"id" => id}) do
+    check_auth(conn, id)
+
+    user = Accounts.get_user!(id)
+    changeset = Accounts.change_registration(user)
+    render(conn, "edit.html", user: user, changeset: changeset)
+  end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
+    check_auth(conn, id)
+
     user = Accounts.get_user!(id)
 
     case Accounts.update_user(user, user_params) do
@@ -68,5 +69,15 @@ defmodule RistoranteWeb.UserController do
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: Routes.user_path(conn, :index))
+  end
+
+  def check_auth(conn, id) do
+    if get_session(conn, :user_id) == String.to_integer(id) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not authorized to access this page.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 end

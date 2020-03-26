@@ -28,3 +28,6 @@
   </li>
 
 </ul>
+
+
+<span><%= link "Edit Information", to: Routes.user_path(@conn, :edit, @current_user.id) %></span>
