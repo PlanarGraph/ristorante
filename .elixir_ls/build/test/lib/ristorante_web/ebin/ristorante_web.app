@@ -5,6 +5,7 @@
               {description,"ristorante_web"},
               {modules,['Elixir.RistoranteWeb',
                         'Elixir.RistoranteWeb.Application',
+                        'Elixir.RistoranteWeb.Auth',
                         'Elixir.RistoranteWeb.ChannelCase',
                         'Elixir.RistoranteWeb.ConnCase',
                         'Elixir.RistoranteWeb.Endpoint',
@@ -16,7 +17,9 @@
                         'Elixir.RistoranteWeb.PageView',
                         'Elixir.RistoranteWeb.Router',
                         'Elixir.RistoranteWeb.Router.Helpers',
-                        'Elixir.RistoranteWeb.UserSocket']},
+                        'Elixir.RistoranteWeb.UserController',
+                        'Elixir.RistoranteWeb.UserSocket',
+                        'Elixir.RistoranteWeb.UserView']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.RistoranteWeb.Application',[]}}]}.
