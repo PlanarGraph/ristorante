@@ -11,5 +11,6 @@ defmodule Ristorante.Repo.Migrations.CreateDishes do
     end
 
     create index(:dishes, [:category_id])
+    create unique_index(:dishes, [:name])
   end
 end

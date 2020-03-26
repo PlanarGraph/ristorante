@@ -1,0 +1,12 @@
+{application,ristorante,
+             [{applications,[kernel,stdlib,elixir,logger,runtime_tools,jason,
+                             postgrex,ecto_sql]},
+              {description,"ristorante"},
+              {modules,['Elixir.Ristorante','Elixir.Ristorante.Application',
+                        'Elixir.Ristorante.DataCase','Elixir.Ristorante.Food',
+                        'Elixir.Ristorante.Food.Category',
+                        'Elixir.Ristorante.Food.Dish',
+                        'Elixir.Ristorante.Repo']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Ristorante.Application',[]}}]}.
