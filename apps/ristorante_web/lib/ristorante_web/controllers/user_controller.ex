@@ -72,7 +72,7 @@ defmodule RistoranteWeb.UserController do
   end
 
   def check_auth(conn, id) do
-    if get_session(conn, :user_id) == String.to_integer(id) do
+    if conn.assigns[:current_user] && conn.assigns[:current_user].id == String.to_integer(id) do
       conn
     else
       conn

@@ -16,7 +16,7 @@ h4{font-size: 1.8rem; letter-spacing: -.05rem; line-height: 1.5}
 h5{font-size: 1.6rem; letter-spacing: 0; line-height: 1.4}
 h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
 
-.container{
+.container {
   margin: 0 auto;
   max-width: 90%;
   padding: 0 2.0rem;
@@ -110,7 +110,7 @@ header nav li {
   padding: 8px;
   display: flex;
   flex-direction: row;
-  text-align: right;
+  text-align: left;
   justify-content: space-between;
   white-space: normal;
 }
@@ -165,7 +165,7 @@ header nav a {
 }
 
 
-.dish-anno {
+.food-dish-anno {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -175,16 +175,42 @@ header nav a {
   padding: 8px;
 }
 
-.dish-name {
+.food-dish-name {
   width: 50%;
 }
 
-.dish-price {
+.food-dish-price {
   justify-items: right;
 }
 
-.dish-desc {
+.food-dish-desc {
   padding: 16px;
+}
+
+.dish-show {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dish-show img {
+  justify-content: right;
+  max-width: 600px;
+  align-items: center;
+  display: flex;
+}
+
+.dish-name {
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.dish-desc {
+  display: flex;
+  justify-content: center;
+  font-size: medium;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

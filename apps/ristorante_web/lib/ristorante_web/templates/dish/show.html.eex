@@ -1,0 +1,16 @@
+<section class="dish-show">
+    <img src="<%= Routes.static_path(@conn, @dish.image_path) %>", alt="<%= @dish.name %>" class="dish-show"/>
+</section>
+
+<div class="dish-name">
+    <%= @dish.name %>
+</div>
+
+<div class="dish-desc">
+    <%= @dish.description %>
+</div>
+
+<%= form_for @conn, Routes.cart_path(@conn, :update, @dish.id), [as: :cart_params, method: "patch"], fn f -> %>
+    <%= select f, :quantity, 1..50 %>
+    <%= submit "Add to cart" %>
+<% end %>

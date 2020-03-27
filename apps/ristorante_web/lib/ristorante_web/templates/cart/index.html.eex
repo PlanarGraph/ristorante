@@ -1,0 +1,11 @@
+<section class="cart">
+    <div>Cart: <%= @conn.assigns[:cart][:num_items] %> items</div>
+
+    <%= if @conn.assigns[:cart][:num_items] > 0 do %>
+        <ul>
+            <%= for {item_id, _} <- @conn.assigns[:cart][:items] do %>   
+                <li><%= item_id %><li>
+            <% end %>
+        </ul>
+    <% end %>
+</section>

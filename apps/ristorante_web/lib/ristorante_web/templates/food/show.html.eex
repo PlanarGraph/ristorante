@@ -2,7 +2,7 @@
     <%= for dish <- @food do %>
         <ul>
             <li>
-                <%= render "dish.html", conn: @conn, dish: dish, path: @path %>
+                <%= render "dish.html", conn: @conn, dish: dish %>
             </li>
         </ul>
     <% end %>
