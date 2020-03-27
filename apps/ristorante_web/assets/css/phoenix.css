@@ -18,7 +18,7 @@ h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
 
 .container{
   margin: 0 auto;
-  max-width: 80.0rem;
+  max-width: 90%;
   padding: 0 2.0rem;
   position: relative;
   width: 100%
@@ -140,6 +140,51 @@ header nav a {
   text-align: left;
   justify-content: center;
   white-space: normal;
+}
+
+.food-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: flex;
+  padding: 4px;
+  justify-content: center;
+}
+
+.food-display li {
+  margin: 1rem;
+  margin-top: 0;
+  list-style-type: none;
+}
+
+.food-display img {
+  display: flex;
+  max-width: 300px;
+  max-height: 200px;
+  width: 100%;
+}
+
+
+.dish-anno {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 300px;
+  justify-content: space-between;
+  border-style: inset;
+  padding: 8px;
+}
+
+.dish-name {
+  width: 50%;
+}
+
+.dish-price {
+  justify-items: right;
+}
+
+.dish-desc {
+  padding: 16px;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

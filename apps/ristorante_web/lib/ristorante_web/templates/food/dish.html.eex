@@ -1,0 +1,6 @@
+<img src="<%= Routes.static_path(@conn, "#{image_link(@dish, @path)}") %>", alt="<%= @dish.name %>"/>
+<section class="dish-anno">
+    <div class="dish-name"><%= @dish.name %></div>
+    <div class="dish-price"><%= format_price(@dish) %></div>
+    <div class="dish-desc"><%= @dish.description %></div>
+</section>

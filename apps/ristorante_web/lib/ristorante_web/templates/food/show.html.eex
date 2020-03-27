@@ -1,9 +1,9 @@
-<table>
+<section class="food-display">
     <%= for dish <- @food do %>
-        <tr>
-            <td>
-                <%= dish.name %>
-            </td>
-        </tr>
+        <ul>
+            <li>
+                <%= render "dish.html", conn: @conn, dish: dish, path: @path %>
+            </li>
+        </ul>
     <% end %>
 </table>

@@ -5,7 +5,8 @@ defmodule RistoranteWeb.FoodController do
 
   def show(conn, %{"id" => category}) do
     food = Food.get_food_by_category(category)
+    path = "/images/" <> String.downcase(category) <> "/"
 
-    render(conn, "show.html", food: food)
+    render(conn, "show.html", food: food, path: path)
   end
 end
