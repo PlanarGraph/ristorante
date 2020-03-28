@@ -251,6 +251,28 @@ header nav a {
   max-width: 800px;
 }
 
+.dish-page-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.dish-page-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dish-page-row img {
+  max-width: 600px;
+}
+
+.dish-page-desc {
+  justify-content: left;
+}
+
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
   header section {
     flex-direction: row;
