@@ -1,9 +1,10 @@
 <div class="dish-page-row">
     <img src="<%= Routes.static_path(@conn, @dish.image_path) %>", alt="<%= @dish.name %>" class="dish-show"/>
     <div class="dish-page-col">
-        <h2><%= @dish.name %></h2>
         
-        <div class="dish-page-desc">
+        <div>
+            <h2><%= @dish.name %></h2>
+        
             <%= @dish.description %>
         </div>
 
