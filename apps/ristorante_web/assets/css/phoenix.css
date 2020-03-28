@@ -247,6 +247,10 @@ header nav a {
   padding: 8px;
 }
 
+.home-image {
+  max-width: 800px;
+}
+
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
   header section {
     flex-direction: row;

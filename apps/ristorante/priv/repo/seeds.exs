@@ -66,3 +66,16 @@ apps =
 for app <- apps do
   Food.create_dish(app)
 end
+
+desserts =
+  [
+    %{name: "Cannoli", price: 7.50, description: "Fried and delicious!"},
+    %{name: "Gelato", price: 9.00, description: "Great on a warm day!"},
+    %{name: "Panna Cotta", price: 11.00, description: "Plenty of flavour!"},
+    %{name: "Tiramisu", price: 10.50, description: "Love that coffee taste!"}
+  ]
+  |> Enum.map(&Map.put(&1, :category_id, category_map["Desserts"]))
+
+for dessert <- desserts do
+  Food.create_dish(dessert)
+end

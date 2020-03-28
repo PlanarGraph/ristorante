@@ -41,7 +41,9 @@
       <section class="container">
         <nav role="navigation", class="nav-horiz">
           <ul class="nav-horiz">
-            <li class="nav-horiz">Desserts</li>
+            <li class="nav-horiz">
+              <%= link "Desserts", to: Routes.food_path(@conn, :show, "Desserts") %>
+            </li>
             <li class="nav-horiz">
               <%= link "Appetisers", to: Routes.food_path(@conn, :show, "Appetisers") %>
             </li>
