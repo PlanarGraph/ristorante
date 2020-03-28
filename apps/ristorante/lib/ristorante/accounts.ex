@@ -103,30 +103,98 @@ defmodule Ristorante.Accounts do
   end
 
   @doc """
-  Gets a signel user.
+  Gets a single user.
 
-  Returns `nil` if the User does not exist.
+  Returns `nil` if the user does not exist.
 
   ## Examples
 
-      iex> get_user()
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(456)
+      nil
+
   """
   def get_user(id), do: Repo.get(User, id)
 
+  @doc """
+  Gets a single user with some parameter list.
+
+  Returns `nil` if no user was found.
+
+  Raises `Ecto.MultipleResultsError` error if more than one user found.
+
+  ## Examples
+
+      iex> get_user_by(valid_params)
+      %User{}
+
+      iex> get_user_by(invalid_params)
+      nil
+
+      iex> get_user_by(ambiguous_params)
+      ** (Ecto.MultipleResultsError)
+
+  """
   def get_user_by(params) do
     Repo.get_by(User, params)
   end
 
+  @doc """
+  Creates a user with the registration changeset.
+
+  ## Examples
+
+      iex> register_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def register_user(attrs \\ {}) do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes with
+  the registration changeset.
+
+  ## Examples
+
+      iex> change_registration(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
   def change_registration(%User{} = user) do
     User.registration_changeset(user, %{})
   end
 
+  @doc """
+  Authenticates the user with `username` using the `given_pass`.
+
+  If the user is not found, a `:not_found` error is returned.
+
+  If the `given_pass` does not matched the hashed password,
+  an `:unauthorized` error is returned.
+
+  Otherwise, the validation is successful and the user is returned.
+
+  ## Examples
+
+      iex> authenticate_by_uname_and_pass(valid_uname, valid_pass)
+      {:ok, %User{}}
+
+      iex> authenticate_by_uname_and_pass(invalid_uname, valid_pass)
+      {:error, :not_found}
+
+      iex> authenticate_by_uname_and_pass(valid_name, invalid_pass)
+      {:error, :unauthorized}
+
+  """
   def authenticate_by_uname_and_pass(username, given_pass) do
     user = get_user_by(username: username)
 

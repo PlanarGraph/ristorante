@@ -8,7 +8,8 @@
                         'Elixir.Ristorante.DataCase','Elixir.Ristorante.Food',
                         'Elixir.Ristorante.Food.Category',
                         'Elixir.Ristorante.Food.Dish',
-                        'Elixir.Ristorante.Repo']},
+                        'Elixir.Ristorante.Repo',
+                        'Elixir.Ristorante.TestHelpers']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.Ristorante.Application',[]}}]}.

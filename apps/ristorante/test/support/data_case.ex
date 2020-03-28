@@ -24,6 +24,7 @@ defmodule Ristorante.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Ristorante.DataCase
+      import Ristorante.TestHelpers
     end
   end
 

@@ -1,76 +1,97 @@
 defmodule Ristorante.AccountsTest do
-  use Ristorante.DataCase
+  use Ristorante.DataCase, async: true
 
   alias Ristorante.Accounts
+  alias Ristorante.Accounts.User
 
-  describe "users" do
-    alias Ristorante.Accounts.User
+  describe "register_user/1" do
+    @valid_attrs %{
+      username: "username",
+      password: "secret123",
+      email: "user@email.com",
+      first_name: "The",
+      last_name: "User",
+      address: "Userland"
+    }
 
-    @valid_attrs %{address: "some address", email: "some email", first_name: "some first_name", last_name: "some last_name", password: "some password", password_hash: "some password_hash", username: "some username"}
-    @update_attrs %{address: "some updated address", email: "some updated email", first_name: "some updated first_name", last_name: "some updated last_name", password: "some updated password", password_hash: "some updated password_hash", username: "some updated username"}
-    @invalid_attrs %{address: nil, email: nil, first_name: nil, last_name: nil, password: nil, password_hash: nil, username: nil}
+    @invalid_attrs %{}
 
-    def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Accounts.create_user()
-
-      user
+    test "valid data inserts user" do
+      assert {:ok, %User{id: id} = user} = Accounts.register_user(@valid_attrs)
+      assert user.username == "username"
+      assert user.email == "user@email.com"
+      assert user.first_name == "The"
+      assert user.last_name == "User"
+      assert user.address == "Userland"
     end
 
-    test "list_users/0 returns all users" do
-      user = user_fixture()
-      assert Accounts.list_users() == [user]
+    test "invalid data does not insert" do
+      assert {:error, _reason} = Accounts.register_user(@invalid_attrs)
+      assert Accounts.list_users() == []
     end
 
-    test "get_user!/1 returns the user with given id" do
-      user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+    test "enforces unique usernames" do
+      assert {:ok, %User{id: id}} = Accounts.register_user(@valid_attrs)
+      assert {:error, changeset} = Accounts.register_user(@valid_attrs)
+      assert %{username: ["has already been taken"]} = errors_on(changeset)
+      assert [%User{id: ^id}] = Accounts.list_users()
     end
 
-    test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.address == "some address"
-      assert user.email == "some email"
-      assert user.first_name == "some first_name"
-      assert user.last_name == "some last_name"
-      assert user.password == "some password"
-      assert user.password_hash == "some password_hash"
-      assert user.username == "some username"
+    test "does not accept long usernames" do
+      attrs = Map.put(@valid_attrs, :username, String.duplicate("z", 21))
+      {:error, changeset} = Accounts.register_user(attrs)
+      assert %{username: ["should be at most 20 character(s)"]} = errors_on(changeset)
+      assert Accounts.list_users() == []
     end
 
-    test "create_user/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+    test "requires username to contain at least one character" do
+      attrs = Map.put(@valid_attrs, :username, "")
+      {:error, changeset} = Accounts.register_user(attrs)
+      assert %{username: ["can't be blank"]} = errors_on(changeset)
+      assert Accounts.list_users() == []
     end
 
-    test "update_user/2 with valid data updates the user" do
-      user = user_fixture()
-      assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.address == "some updated address"
-      assert user.email == "some updated email"
-      assert user.first_name == "some updated first_name"
-      assert user.last_name == "some updated last_name"
-      assert user.password == "some updated password"
-      assert user.password_hash == "some updated password_hash"
-      assert user.username == "some updated username"
+    test "requires password to be at least 6 chars long" do
+      attrs = Map.put(@valid_attrs, :password, "abc12")
+      {:error, changeset} = Accounts.register_user(attrs)
+      assert %{password: ["should be at least 6 character(s)"]} = errors_on(changeset)
+      assert Accounts.list_users() == []
     end
 
-    test "update_user/2 with invalid data returns error changeset" do
-      user = user_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
-      assert user == Accounts.get_user!(user.id)
+    test "requires password to at most 64 characters long" do
+      attrs = Map.put(@valid_attrs, :password, String.duplicate("1", 65))
+      {:error, changeset} = Accounts.register_user(attrs)
+      assert %{password: ["should be at most 64 character(s)"]} = errors_on(changeset)
+      assert Accounts.list_users() == []
     end
 
-    test "delete_user/1 deletes the user" do
-      user = user_fixture()
-      assert {:ok, %User{}} = Accounts.delete_user(user)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
+    test "requires email to have proper format" do
+      attrs = Map.put(@valid_attrs, :email, "useratgibberish.com")
+      {:error, changeset} = Accounts.register_user(attrs)
+      assert %{email: ["has invalid format"]} = errors_on(changeset)
+      assert Accounts.list_users() == []
+    end
+  end
+
+  describe "authenticate_by_uname_and_pass/2" do
+    @pass "123456"
+
+    setup do
+      {:ok, user: user_fixture(password: @pass)}
     end
 
-    test "change_user/1 returns a user changeset" do
-      user = user_fixture()
-      assert %Ecto.Changeset{} = Accounts.change_user(user)
+    test "returns user with correct password", %{user: user} do
+      assert {:ok, auth_user} = Accounts.authenticate_by_uname_and_pass(user.username, @pass)
+      assert auth_user.id == user.id
+    end
+
+    test "returns unauthorized error with invalid password", %{user: user} do
+      assert {:error, :unauthorized} =
+               Accounts.authenticate_by_uname_and_pass(user.username, "badpass")
+    end
+
+    test "returns not found error with no matching user for username" do
+      assert {:error, :not_found} = Accounts.authenticate_by_uname_and_pass("unknownuser", @pass)
     end
   end
 end

@@ -22,6 +22,7 @@ defmodule Ristorante.Food.Dish do
     |> add_image_path()
   end
 
+  # Adds the image path to the changeset.
   defp add_image_path(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{name: name, category_id: cid}} ->
@@ -29,11 +30,11 @@ defmodule Ristorante.Food.Dish do
         put_change(changeset, :image_path, gen_image_path(name, category))
 
       _ ->
-        IO.puts("here")
         changeset
     end
   end
 
+  # Generates the proper image path given the dish name and category.
   defp gen_image_path(name, category) do
     name_format =
       name

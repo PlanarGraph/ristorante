@@ -24,6 +24,7 @@ defmodule Ristorante.Accounts.User do
     |> unique_constraint(:username)
   end
 
+  # Changeset for registering users.
   def registration_changeset(user, params) do
     user
     |> changeset(params)
@@ -33,6 +34,7 @@ defmodule Ristorante.Accounts.User do
     |> put_pass_hash()
   end
 
+  # If the changeset is valid, add the password hash.
   defp put_pass_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
