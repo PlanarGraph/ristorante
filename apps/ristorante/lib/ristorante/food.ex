@@ -35,4 +35,10 @@ defmodule Ristorante.Food do
 
     Repo.all(query)
   end
+
+  def list_dishes_by_ids(ids) do
+    query = from d in Dish, where: d.id in ^ids
+
+    Repo.all(query)
+  end
 end

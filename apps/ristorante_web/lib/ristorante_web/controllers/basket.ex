@@ -24,14 +24,36 @@ defmodule RistoranteWeb.Basket do
     put_session(conn, :cart, %{})
   end
 
-  def add_items(conn, id, quantity) do
+  def add_items(conn, cart_update) do
+    change_items(conn, cart_update, fn {id, quantity}, cart ->
+      Map.update(cart, id, quantity, &(&1 + quantity))
+    end)
+  end
+
+  def update_items(conn, cart_update) do
+    change_items(conn, cart_update, fn {id, quantity}, cart ->
+      Map.put(cart, id, quantity)
+    end)
+  end
+
+  defp change_items(conn, cart_update, f) do
     cart =
       conn
       |> get_session(:cart)
       |> Map.update!(:items, fn items ->
-        Map.update(items, id, quantity, &(&1 + quantity))
+        Enum.reduce(cart_update, items, f)
+        |> Enum.filter(fn {_, v} -> v != 0 end)
+        |> Enum.into(%{})
       end)
-      |> Map.update!(:num_items, &(&1 + quantity))
+      |> (fn cart ->
+            Map.put(cart, :num_items, cart[:items] |> Map.values() |> Enum.sum())
+          end).()
+
+    # counted_cart =
+    #  cart[:items]
+    #  |> Map.values()
+    #  |> Enum.sum()
+    #  |> (&Map.put(cart, :num_items, &1)).()
 
     conn
     |> put_session(:cart, cart)

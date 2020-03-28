@@ -4,6 +4,5 @@
     <section class="food-dish-anno">
         <div class="food-dish-name"><%= @dish.name %></div>
         <div class="food-dish-price"><%= format_price(@dish) %></div>
-        <div class="food-dish-desc"><%= @dish.description %></div>
     </section>
 </a>

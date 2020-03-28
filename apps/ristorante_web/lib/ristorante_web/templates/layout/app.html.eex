@@ -35,7 +35,7 @@
           </ul>
         </nav>
         <a href="<%= Routes.page_path(@conn, :index) %>" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/ristorante.png") %>" alt="Phoenix Framework Logo"/>
+          <img src="<%= Routes.static_path(@conn, "/images/ristorante.png") %>" alt="Ristorante"/>
         </a>
       </section>
       <section class="container">

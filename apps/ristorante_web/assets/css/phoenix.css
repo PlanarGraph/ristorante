@@ -160,7 +160,7 @@ header nav a {
 .food-display img {
   display: flex;
   max-width: 300px;
-  max-height: 200px;
+  max-height: 175px;
   width: 100%;
 }
 
@@ -211,6 +211,40 @@ header nav a {
   display: flex;
   justify-content: center;
   font-size: medium;
+}
+
+.cart-image {
+  width: 200px;
+}
+
+.cart-buttons {
+  display: flex;
+  justify-content: right;
+  white-space: normal;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+
+.cart-buttons button {
+  margin-left: 4px;
+  margin-right: 4px;
+  max-width: 150px;
+}
+
+.cart-table {
+  font-size: large;
+}
+
+.purchase-button button {
+  background-color: green;
+  border-color: darkgreen;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: right;
+  font-size: large;
+  padding: 8px;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
