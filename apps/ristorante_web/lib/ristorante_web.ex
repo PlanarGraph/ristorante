@@ -22,6 +22,7 @@ defmodule RistoranteWeb do
       use Phoenix.Controller, namespace: RistoranteWeb
       import Plug.Conn
       import RistoranteWeb.Gettext
+      import RistoranteWeb.Auth, only: [authenticate_user: 2]
       alias RistoranteWeb.Router.Helpers, as: Routes
     end
   end
@@ -49,6 +50,7 @@ defmodule RistoranteWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import RistoranteWeb.Auth, only: [authenticate_user: 2]
     end
   end
 

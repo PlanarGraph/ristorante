@@ -11,14 +11,50 @@
   <body>
     <header>
       <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+        <nav role="navigation", class="nav-vert">
+          <ul class="nav-vert">
+              <li class="nav-vert">
+                <%= link "Cart (#{@conn.assigns[:cart][:num_items] || 0})",
+                  to: Routes.cart_path(@conn, :index) %>
+              </li>
+            <%= if @current_user do %>
+              <li class="nav-vert"> 
+                <%= link "#{@current_user.username}", to: Routes.user_path(@conn, :show, @current_user.id) %>
+              </li>
+              <li class="nav-vert">
+                <%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: "delete" %>
+              </li>
+            <% else %>
+              <li class="nav-vert">
+                <%= link "Register", to: Routes.user_path(@conn, :new) %>
+              </li>
+              <li class="nav-vert">
+                <%= link "Log in", to: Routes.session_path(@conn, :new) %>
+              </li>
+            <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        <a href="<%= Routes.page_path(@conn, :index) %>" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/ristorante.png") %>" alt="Ristorante"/>
         </a>
+      </section>
+      <section class="container">
+        <nav role="navigation", class="nav-horiz">
+          <ul class="nav-horiz">
+            <li class="nav-horiz">
+              <%= link "Desserts", to: Routes.food_path(@conn, :show, "Desserts") %>
+            </li>
+            <li class="nav-horiz">
+              <%= link "Appetisers", to: Routes.food_path(@conn, :show, "Appetisers") %>
+            </li>
+            <li class="nav-horiz">
+              <%= link "Sandwiches", to: Routes.food_path(@conn, :show, "Sandwiches") %>
+            </li>
+            <li class="nav-horiz">
+              <%= link "Pasta", to: Routes.food_path(@conn, :show, "Pasta") %>
+            </li>
+          </ul>
+        </nav>
       </section>
     </header>
     <main role="main" class="container">

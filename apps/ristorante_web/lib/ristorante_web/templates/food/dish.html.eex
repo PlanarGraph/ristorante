@@ -1,0 +1,8 @@
+<a href="<%= Routes.dish_path(@conn, :show, @dish.id) %>" class="phx-logo">
+
+    <img src="<%= Routes.static_path(@conn, @dish.image_path) %>", alt="<%= @dish.name %>"/>
+    <section class="food-dish-anno">
+        <div class="food-dish-name"><%= @dish.name %></div>
+        <div class="food-dish-price"><%= format_price(@dish) %></div>
+    </section>
+</a>
