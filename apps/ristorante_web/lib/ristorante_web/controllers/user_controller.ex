@@ -51,7 +51,7 @@ defmodule RistoranteWeb.UserController do
 
     user = Accounts.get_user!(id)
 
-    case Accounts.update_user(user, user_params) do
+    case Accounts.update_registration(user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")

@@ -8,7 +8,6 @@
             <%= @dish.description %>
         </div>
 
-
         <%= form_for @conn, Routes.cart_path(@conn, :update, "add"), [as: :cart_params, method: "patch"], fn f -> %>
             <%= select f, "#{@dish.id}", 1..50 %>
             <%= submit "Add to cart" %>

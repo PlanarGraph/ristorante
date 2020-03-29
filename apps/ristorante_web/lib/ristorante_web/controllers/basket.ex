@@ -21,7 +21,7 @@ defmodule RistoranteWeb.Basket do
   end
 
   def empty_cart(conn) do
-    put_session(conn, :cart, %{})
+    put_session(conn, :cart, %{num_items: 0, items: %{}})
   end
 
   def add_items(conn, cart_update) do

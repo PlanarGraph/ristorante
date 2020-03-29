@@ -21,6 +21,7 @@ defmodule RistoranteWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      import RistoranteWeb.TestHelpers
       alias RistoranteWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
