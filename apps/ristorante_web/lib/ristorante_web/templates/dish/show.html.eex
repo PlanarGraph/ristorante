@@ -5,6 +5,7 @@
         <div>
             <h2><%= @dish.name %></h2>
         
+            <h4><%= format_price(@dish) %></h4>
             <%= @dish.description %>
         </div>
 

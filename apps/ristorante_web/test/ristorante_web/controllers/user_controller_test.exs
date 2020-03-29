@@ -13,11 +13,11 @@ defmodule RistoranteWeb.UserControllerTest do
   }
   @update_attrs %{
     address: "some updated address",
-    email: "updatedemail@email.com",
+    email: "updated@email.com",
     first_name: "some updated first_name",
     last_name: "some updated last_name",
-    password: "some updated password",
-    username: "some updated username"
+    password: "updated password",
+    username: "updated username"
   }
   @invalid_attrs %{
     address: nil,
