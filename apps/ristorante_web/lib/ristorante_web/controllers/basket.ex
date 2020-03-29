@@ -4,24 +4,30 @@ defmodule RistoranteWeb.Basket do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    cart = get_session(conn, :cart)
+    session_cart = get_session(conn, :cart)
 
-    case cart do
-      nil ->
+    cond do
+      cart = conn.assigns[:cart] ->
+        conn
+        |> put_session(:cart, cart)
+        |> assign(:cart, cart)
+
+      session_cart ->
+        conn
+        |> put_session(:cart, session_cart)
+        |> assign(:cart, session_cart)
+
+      true ->
         empty_cart = %{num_items: 0, items: %{}}
 
         conn
         |> put_session(:cart, empty_cart)
         |> assign(:cart, empty_cart)
-
-      _ ->
-        conn
-        |> assign(:cart, cart)
     end
   end
 
   def empty_cart(conn) do
-    put_session(conn, :cart, %{})
+    put_session(conn, :cart, %{num_items: 0, items: %{}})
   end
 
   def add_items(conn, cart_update) do

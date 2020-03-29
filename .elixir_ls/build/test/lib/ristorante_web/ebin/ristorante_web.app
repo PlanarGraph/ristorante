@@ -26,6 +26,7 @@
                         'Elixir.RistoranteWeb.Router.Helpers',
                         'Elixir.RistoranteWeb.SessionController',
                         'Elixir.RistoranteWeb.SessionView',
+                        'Elixir.RistoranteWeb.TestHelpers',
                         'Elixir.RistoranteWeb.UserController',
                         'Elixir.RistoranteWeb.UserSocket',
                         'Elixir.RistoranteWeb.UserView']},

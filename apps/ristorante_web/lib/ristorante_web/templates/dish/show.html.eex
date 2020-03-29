@@ -1,12 +1,13 @@
 <div class="dish-page-row">
     <img src="<%= Routes.static_path(@conn, @dish.image_path) %>", alt="<%= @dish.name %>" class="dish-show"/>
     <div class="dish-page-col">
-        <h2><%= @dish.name %></h2>
         
-        <div class="dish-page-desc">
+        <div>
+            <h2><%= @dish.name %></h2>
+        
+            <h4><%= format_price(@dish) %></h4>
             <%= @dish.description %>
         </div>
-
 
         <%= form_for @conn, Routes.cart_path(@conn, :update, "add"), [as: :cart_params, method: "patch"], fn f -> %>
             <%= select f, "#{@dish.id}", 1..50 %>

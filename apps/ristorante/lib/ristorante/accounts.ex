@@ -160,6 +160,24 @@ defmodule Ristorante.Accounts do
   end
 
   @doc """
+  Updates a user with the registration changeset.
+
+  ## Examples
+
+      iex> update_registration(user, %{field: new_value})
+      {:ok, %User{}}
+
+      iex> update_registration(user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_registration(%User{} = user, attrs) do
+    user
+    |> User.registration_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes with
   the registration changeset.
 
