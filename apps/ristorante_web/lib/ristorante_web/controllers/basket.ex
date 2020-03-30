@@ -1,5 +1,6 @@
 defmodule RistoranteWeb.Basket do
   import Plug.Conn
+  import Phoenix.Controller
 
   def init(opts), do: opts
 
@@ -55,14 +56,21 @@ defmodule RistoranteWeb.Basket do
             Map.put(cart, :num_items, cart[:items] |> Map.values() |> Enum.sum())
           end).()
 
-    # counted_cart =
-    #  cart[:items]
-    #  |> Map.values()
-    #  |> Enum.sum()
-    #  |> (&Map.put(cart, :num_items, &1)).()
-
     conn
     |> put_session(:cart, cart)
     |> assign(:cart, cart)
+  end
+
+  def nonempty_cart(conn, _opts) do
+    cart = conn.assigns[:cart]
+
+    if cart && cart[:num_items] && cart[:num_items] > 0 do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must have items in your cart to access that page.")
+      |> redirect(to: Routes.page_path(conn, :index))
+      |> halt()
+    end
   end
 end
