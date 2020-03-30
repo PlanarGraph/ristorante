@@ -22,6 +22,8 @@
                         'Elixir.RistoranteWeb.LayoutView',
                         'Elixir.RistoranteWeb.PageController',
                         'Elixir.RistoranteWeb.PageView',
+                        'Elixir.RistoranteWeb.PurchaseController',
+                        'Elixir.RistoranteWeb.PurchaseView',
                         'Elixir.RistoranteWeb.Router',
                         'Elixir.RistoranteWeb.Router.Helpers',
                         'Elixir.RistoranteWeb.SessionController',

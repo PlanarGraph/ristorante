@@ -52,4 +52,22 @@ defmodule RistoranteWeb.BasketTest do
 
     assert get_session(conn, :cart) == %{num_items: 0, items: %{}}
   end
+
+  test "nonempty_cart/2 continues when the cart is nonempty", %{conn: conn} do
+    conn =
+      conn
+      |> assign(:cart, %{num_items: 1, items: %{1 => 1}})
+      |> Basket.nonempty_cart([])
+
+    refute conn.halted
+  end
+
+  test "nonempty_cart/2 halts when the cart is empty", %{conn: conn} do
+    conn =
+      conn
+      |> assign(:cart, %{num_items: 0, items: %{}})
+      |> Basket.nonempty_cart([])
+
+    assert conn.halted
+  end
 end

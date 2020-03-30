@@ -1,0 +1,21 @@
+<h2>Transaction #<%= @purchase.id %></h2>
+<div>Date of Transaction: <%= @purchase.inserted_at %></div>
+
+<table class="cart-table">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+
+<%= for {item_id, quantity} <- @purchase.items do %>
+    <tr>
+        <td><%= @dishes[String.to_integer(item_id)].name %></td>
+        <td><%= quantity %></td>
+        <td><%= @dishes[String.to_integer(item_id)].price * quantity %>
+    </tr>
+<% end %>
+
+</table>
+
+<div>Subtotal: <%= @purchase.total %></div>
