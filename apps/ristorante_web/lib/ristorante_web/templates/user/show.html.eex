@@ -1,5 +1,10 @@
-<h1>Show User</h1>
+<h2>Your Account</h2>
 
+<h4>
+  <%= link "Past Transactions", to: Routes.purchase_path(@conn, :index) %>
+</h4>
+
+<h4>Information</h3>
 <ul>
 
   <li>

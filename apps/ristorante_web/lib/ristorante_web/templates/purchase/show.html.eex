@@ -10,12 +10,19 @@
 
 <%= for {item_id, quantity} <- @purchase.items do %>
     <tr>
-        <td><%= @dishes[String.to_integer(item_id)].name %></td>
+        <td>
+            <%= link "#{@dishes[String.to_integer(item_id)].name}",
+                to: Routes.dish_path(@conn, :show, item_id) %>
+        </td>
         <td><%= quantity %></td>
-        <td><%= @dishes[String.to_integer(item_id)].price * quantity %>
+        <td><%= format_price(@dishes[String.to_integer(item_id)].price * quantity) %></td>
     </tr>
 <% end %>
 
 </table>
 
-<div>Subtotal: <%= @purchase.total %></div>
+<h4>Subtotal: <%= format_price(@purchase.total) %></h4>
+
+<div>
+    <%= link "Back", to: Routes.purchase_path(@conn, :index) %>
+</div>

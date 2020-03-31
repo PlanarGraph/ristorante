@@ -1,0 +1,24 @@
+<h2>Past Purchases</h2>
+<table class="cart-table">
+    <tr>
+        <th>Transaction Number</th>
+        <th>Date</th>
+        <th>Total</th>
+    </tr>
+
+<%= for purchase <- @purchases do %>
+    <tr>
+        <td>
+            <%= link "Purchase #{purchase.id}", 
+                to: Routes.purchase_path(@conn, :show, purchase.id) %>
+        </td>
+        <td><%= purchase.inserted_at %></td>
+        <td><%= format_price(purchase.total) %></td>
+    </tr>
+<% end %>
+
+</table>
+
+<div>
+    <%= link "Back", to: Routes.user_path(@conn, :show, @user) %>
+</div>

@@ -36,13 +36,18 @@ defmodule RistoranteWeb.PurchaseController do
   end
 
   def show(conn, %{"id" => id}) do
-    user_id = conn.assigns[:current_user].id
+    user = conn.assigns[:current_user]
     purchase = Transactions.get_purchase_by(id: id)
 
     cond do
-      purchase && purchase.user_id == user_id ->
+      purchase && purchase.user_id == user.id ->
         dishes = get_dishes(purchase.items)
-        render(conn, "show.html", purchase: purchase, dishes: dishes)
+
+        render(conn, "show.html",
+          purchase: purchase,
+          dishes: dishes,
+          user: user
+        )
 
       true ->
         conn
@@ -50,6 +55,13 @@ defmodule RistoranteWeb.PurchaseController do
         |> redirect(to: Routes.page_path(conn, :index))
         |> halt()
     end
+  end
+
+  def index(conn, _) do
+    user = conn.assigns[:current_user]
+    user_purchases = Transactions.list_user_purchases(user)
+
+    render(conn, "index.html", purchases: user_purchases, user: user)
   end
 
   defp get_dishes(items) do

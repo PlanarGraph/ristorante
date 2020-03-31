@@ -23,7 +23,7 @@ defmodule RistoranteWeb.Router do
     resources "/menu", FoodController, only: [:show]
     resources "/cart", CartController, only: [:index, :update]
     resources "/menu/dishes", DishController, only: [:show]
-    resources "/purchase", PurchaseController, only: [:new, :create, :show]
+    resources "/purchase", PurchaseController, only: [:new, :create, :show, :index]
     get "/", PageController, :index
   end
 

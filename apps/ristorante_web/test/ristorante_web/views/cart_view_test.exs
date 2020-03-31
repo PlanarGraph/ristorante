@@ -3,23 +3,18 @@ defmodule RistoranteWeb.CartViewTest do
 
   alias RistoranteWeb.CartView
 
-  setup do
-    category = category_fixture()
-    {:ok, category_id: category.id}
+  test "formats correctly" do
+    price = 25.52
+    assert CartView.format_price(price) == "$25.52"
   end
 
-  test "formats correctly", %{category_id: id} do
-    dish = dish_fixture(price: 25.52, category_id: id)
-    assert CartView.format_price(dish.price) == "$25.52"
+  test "adds two decimal places" do
+    price = 10.0
+    assert CartView.format_price(price) == "$10.00"
   end
 
-  test "adds two decimal places", %{category_id: id} do
-    dish = dish_fixture(price: 10.0, category_id: id)
-    assert CartView.format_price(dish.price) == "$10.00"
-  end
-
-  test "rounds to two decimals", %{category_id: id} do
-    dish = dish_fixture(price: 300.5674, category_id: id)
-    assert CartView.format_price(dish.price) == "$300.57"
+  test "rounds to two decimals" do
+    price = 300.5674
+    assert CartView.format_price(price) == "$300.57"
   end
 end

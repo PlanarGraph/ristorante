@@ -7,6 +7,7 @@ defmodule Ristorante.Transactions do
   alias Ristorante.Repo
 
   alias Ristorante.Transactions.Purchase
+  alias Ristorante.Accounts
 
   @doc """
   Returns the list of purchases.
@@ -123,4 +124,14 @@ defmodule Ristorante.Transactions do
       :nil
   """
   def get_purchase_by(params), do: Repo.get_by(Purchase, params)
+
+  def list_user_purchases(%Accounts.User{} = user) do
+    Purchase
+    |> user_purchases_query(user)
+    |> Repo.all()
+  end
+
+  defp user_purchases_query(query, %Accounts.User{id: user_id}) do
+    from(p in query, where: p.user_id == ^user_id)
+  end
 end

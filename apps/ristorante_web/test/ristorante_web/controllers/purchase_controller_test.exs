@@ -3,7 +3,6 @@ defmodule RistoranteWeb.PurchaseControllerTest do
 
   alias Ristorante.Transactions
   alias Ristorante.Food
-  alias Ristorante.Transactions.Purchase
 
   describe "new purchase" do
     setup %{conn: conn} do
@@ -89,6 +88,32 @@ defmodule RistoranteWeb.PurchaseControllerTest do
         |> get(Routes.purchase_path(conn, :show, purchase_id))
 
       assert redirected_to(conn) == Routes.page_path(conn, :index)
+    end
+  end
+
+  describe "index purchase" do
+    setup %{conn: conn} do
+      user = user_fixture()
+      {:ok, dish} = Food.create_dish(%{name: "Tofu", price: 8.69})
+
+      {:ok, purchase} =
+        Transactions.create_purchase(%{
+          total: 13.50,
+          user_id: user.id,
+          items: %{dish.id => 5}
+        })
+
+      conn =
+        conn
+        |> assign(:current_user, user)
+
+      {:ok, conn: conn, purchase_id: purchase.id}
+    end
+
+    test "renders with past purchases", %{conn: conn, purchase_id: purchase_id} do
+      conn = get(conn, Routes.purchase_path(conn, :index))
+
+      assert html_response(conn, 200) =~ "Purchase #{purchase_id}"
     end
   end
 end
