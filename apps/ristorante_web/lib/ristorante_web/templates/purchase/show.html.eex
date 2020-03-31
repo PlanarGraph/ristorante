@@ -1,0 +1,28 @@
+<h2>Transaction #<%= @purchase.id %></h2>
+<div>Date of Transaction: <%= @purchase.inserted_at %></div>
+
+<table class="cart-table">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+
+<%= for {item_id, quantity} <- @purchase.items do %>
+    <tr>
+        <td>
+            <%= link "#{@dishes[String.to_integer(item_id)].name}",
+                to: Routes.dish_path(@conn, :show, item_id) %>
+        </td>
+        <td><%= quantity %></td>
+        <td><%= format_price(@dishes[String.to_integer(item_id)].price * quantity) %></td>
+    </tr>
+<% end %>
+
+</table>
+
+<h4>Subtotal: <%= format_price(@purchase.total) %></h4>
+
+<div>
+    <%= link "Back", to: Routes.purchase_path(@conn, :index) %>
+</div>

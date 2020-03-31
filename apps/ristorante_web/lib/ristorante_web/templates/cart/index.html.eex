@@ -15,7 +15,11 @@
             <%= for {item_id, quantity} <- @conn.assigns[:cart][:items] do %>
                 <tr>
                     <td><img src="<%= Routes.static_path(@conn, @dishes[item_id].image_path) %>", alt="<%= @dishes[item_id].name %>", class="cart-image"/></td>
-                    <td><%= @dishes[item_id].name %></td>
+                    <td>
+                        <a href="<%= Routes.dish_path(@conn, :show, @dishes[item_id]) %>">
+                            <%= @dishes[item_id].name %>
+                        </a>
+                    </td>
                     <td><%= format_price(@dishes[item_id].price) %></td>
                     <td><%= select f, "#{item_id}", 0..50, value: quantity %></td>
                     <td><%= format_price(@dishes[item_id].price * quantity) %>
@@ -33,7 +37,7 @@
             <div class="cart-buttons">
                 <div><%= button "Back", [to: Routes.page_path(@conn, :index), method: :get] %></div>
                 <div><%= submit "Update cart" %></div>
-                <div class="purchase-button"><%= button "Purchase", to: "test" %></div>
+                <div class="purchase-button"><%= button "Purchase", to: Routes.purchase_path(@conn, :new), method: "get" %></div>
             </div>
         <% end %>
     <% else %>

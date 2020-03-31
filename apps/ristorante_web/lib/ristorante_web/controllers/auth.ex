@@ -42,8 +42,21 @@ defmodule RistoranteWeb.Auth do
     else
       conn
       |> put_flash(:error, "You must be logged in to access that page.")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.session_path(conn, :new))
       |> halt()
+    end
+  end
+
+  def check_auth(conn, _opts) do
+    id = conn.params["id"]
+    user = conn.assigns[:current_user]
+
+    if user && id && user.id == String.to_integer(id) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not authorized to access this page.")
+      |> redirect(to: Routes.page_path(conn, :index))
     end
   end
 end

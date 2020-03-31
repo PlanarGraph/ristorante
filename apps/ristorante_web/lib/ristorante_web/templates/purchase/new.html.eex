@@ -1,0 +1,28 @@
+<h2>Confirm Your Purchase</h2>
+
+<table class="cart-table">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+
+<%= for {item_id, quantity} <- @conn.assigns[:cart][:items] do %>
+    <tr>
+        <td><%= @dishes[item_id].name %></td>
+        <td><%= quantity %></td>
+        <td><%= @dishes[item_id].price * quantity %>
+    </tr>
+<% end %>
+
+</table>
+
+<div class="subtotal">
+    Subtotal:
+    <%= Enum.map(@conn.assigns[:cart][:items], fn {id, quan} ->
+            @dishes[id].price * quan
+        end) |> Enum.sum() |> format_price() %>
+</div>
+</div class="cart-buttons">
+    <div class="purchase-button"><%= button "Purchase", to: Routes.purchase_path(@conn, :create) %></div>
+</div>

@@ -9,7 +9,9 @@
                         'Elixir.Ristorante.Food.Category',
                         'Elixir.Ristorante.Food.Dish',
                         'Elixir.Ristorante.Repo',
-                        'Elixir.Ristorante.TestHelpers']},
+                        'Elixir.Ristorante.TestHelpers',
+                        'Elixir.Ristorante.Transactions',
+                        'Elixir.Ristorante.Transactions.Purchase']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.Ristorante.Application',[]}}]}.
